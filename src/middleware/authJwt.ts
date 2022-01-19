@@ -29,6 +29,23 @@ export const verifyToken = async(req:Request, res:Response, next: Function) => {
 
     }
 }
+export const isAdmin = async (req:Request, res:Response, next:Function) => {
+    try {
+      const user = await getUser(req.body.userId);
+      
+      
+        if (user.rol===1) {
+          next();
+          return;
+        }
+      
+  
+      return res.status(403).json({ message: "Require Admin Role!" });
+    } catch (error) {
+      console.log(error)
+      return res.status(500).send({ message: error });
+    }
+};
 /*
 export const getCantones = (req, res) => {
 
