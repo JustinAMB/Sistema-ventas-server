@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import jwt, { JwtPayload, verify, } from 'jsonwebtoken';
-import { OkPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
 
 
-import connection from '../db/connection';
 
-export const verifyToken = (req:Request, res:Response, next: Function) => {
+import {getUser} from '../db/user';
+
+export const verifyToken = async(req:Request, res:Response, next: Function) => {
 
     try{
         const token=req.headers['x-access-token'] as string;
@@ -15,12 +15,8 @@ export const verifyToken = (req:Request, res:Response, next: Function) => {
         }
         const decoded = verify(token, process.env.Secret!)as JwtPayload;
         req.body.userId=decoded.id;
-        const data=connection.query(`select * from user where id=${decoded.id}`, (err, result: RowDataPacket[] | RowDataPacket[][] | OkPacket | OkPacket[] | ResultSetHeader) => {
-            console.log(result);
-            
-            return (!err) ? result : null;
-    
-        });
+        
+        const data=await getUser(decoded.id);
         if (!data) {
             return res.status(400).send({ ok: false, message: 'User not found.' });
         }
