@@ -17,9 +17,7 @@ export const verifyToken = (req:Request, res:Response, next: Function) => {
         req.body.userId=decoded.id;
         const data=connection.query(`select * from user where id=${decoded.id}`, (err, result: RowDataPacket[] | RowDataPacket[][] | OkPacket | OkPacket[] | ResultSetHeader) => {
             console.log(result);
-            if (!err) {
-                return 
-            }
+            
             return (!err) ? result : null;
     
         });
