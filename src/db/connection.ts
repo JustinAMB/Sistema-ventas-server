@@ -1,4 +1,4 @@
-import mysql, { Pool } from 'mysql2';
+import mysql, { Pool } from 'mysql2/promise';
 
 
 
@@ -13,11 +13,5 @@ const pool:Pool=mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
 });
-pool.getConnection((err, connection) =>{
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('Connected to database');
-    }
-});
+
 export default pool;
