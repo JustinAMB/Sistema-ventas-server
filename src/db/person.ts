@@ -1,7 +1,6 @@
 import { RowDataPacket } from 'mysql2';
 import Person from '../models/person.model';
 import Response from '../models/response.model';
-
 import connection from './connection';
 
 
@@ -20,7 +19,6 @@ export const getPersons=async (kind:number):Promise<Person[]>=>{
     
     console.log(kind);
     const data=await connection.query(`select * from person where kind=?`, [kind]) as RowDataPacket[][];
-    
     return data[0] as Person[];
 }
 
