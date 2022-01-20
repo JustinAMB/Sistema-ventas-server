@@ -1,3 +1,3 @@
-export default interface Reponse{
+export default interface Response{
     exito:number;
 }

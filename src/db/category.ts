@@ -3,7 +3,7 @@ import { RowDataPacket } from 'mysql2';
 import connection from './connection';
 
 import Category from '../models/category.model';
-import { Response } from 'express';
+import  Response  from '../models/response.model';
 
 
 export const getCategorys=async ():Promise<Category[]>=>{

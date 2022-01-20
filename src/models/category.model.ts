@@ -3,5 +3,5 @@ export default interface  Category{
     name:string;
     description:string;
     image?:string;
-    created_at:Date;
+    created_at?:Date;
 }

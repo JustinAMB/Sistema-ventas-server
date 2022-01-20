@@ -2,14 +2,13 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import {getUserByEmail} from '../db/user';
 import { comparePassword } from '../helpers/encryption';
-
 export const singIn=async(req:Request, res:Response)=>{
     
 
 
     try{
         const {email, password}=req.body;
-        console.log(email, password);
+        console.log(email, password); 
         const user=await getUserByEmail(email);
         if(!user){
             return res.status(400).json({
