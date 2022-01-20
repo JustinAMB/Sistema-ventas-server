@@ -77,7 +77,7 @@ export const addPerson=(req:Request,res:Response)=>{
 } 
 
 
-export  const updatePersobById=(req:Request,res:Response)=>{
+export  const updatePersonById=(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
         const {name,email,lastname,address,phone}=req.body;

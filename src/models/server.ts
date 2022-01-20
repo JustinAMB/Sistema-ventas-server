@@ -1,5 +1,6 @@
 import express,{Application} from 'express';
 import category from '../routes/category.routes';
+import person from '../routes/person.routes';
 import cors from 'cors';
 
 import morgan from 'morgan';
@@ -8,7 +9,8 @@ class Server{
     private app!: Application;
     private port!: string;
     private apiPaths={
-        category: '/api/category'
+        category: '/api/category',
+        person: '/api/person',
     }
     constructor(){
         this.app=express();
@@ -27,6 +29,7 @@ class Server{
     routes(){
         console.log('routess');
         this.app.use(this.apiPaths.category, category);
+        this.app.use(this.apiPaths.person, person);
         
     }
     listen(){
