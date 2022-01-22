@@ -3,6 +3,7 @@ import category from '../routes/category.routes';
 import person from '../routes/person.routes';
 import sell from '../routes/sell.routes';
 import user from '../routes/user.routes';
+import product from '../routes/product.routes';
 import cors from 'cors';
 
 import morgan from 'morgan';
@@ -15,6 +16,7 @@ class Server{
         person: '/api/person',
         sell: '/api/sell',
         user: '/api/user',
+        product: '/api/product',
     }
     constructor(){
         this.app=express();
@@ -36,6 +38,7 @@ class Server{
         this.app.use(this.apiPaths.person, person);
         this.app.use(this.apiPaths.sell, sell);
         this.app.use(this.apiPaths.user, user);
+        this.app.use(this.apiPaths.product, product);
         
     }
     listen(){
