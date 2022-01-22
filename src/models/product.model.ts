@@ -4,10 +4,9 @@ export default interface Product{
     image?:string;
     description:string;
     barcode:string;
-    price_in:number;
-    price_out:number;
+    price:number;
     inventary_min:number;
-    is_active:boolean;
+    inventary:number;
     category:number;
     unit:string;
 }
