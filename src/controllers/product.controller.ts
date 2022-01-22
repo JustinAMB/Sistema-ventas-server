@@ -90,7 +90,7 @@ export const activeProductbyId=async(req:Request,res:Response)=>{
 
 
 
-export const updateProductbyId=async(req:Request,res:Response)=>{
+export const updateProductById=async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
         const {name,description,price,barcode,unit,category,inventary,inventary_min,image}=req.body;
