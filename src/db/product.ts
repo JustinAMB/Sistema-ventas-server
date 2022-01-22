@@ -7,7 +7,7 @@ export const getProduct=async(id:number=0):Promise<Product>=>{
     return data[0][0] as Product;
 }
 
-export const getProductAll=async(is_active:boolean):Promise<Product[]>=>{
+export const getProducts=async(is_active:boolean):Promise<Product[]>=>{
     const data=await connection.query(`select * from product where is_active=?`, [is_active]) as RowDataPacket[][];
     return data[0] as Product[];
 }
