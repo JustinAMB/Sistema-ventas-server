@@ -1,6 +1,7 @@
 import express,{Application} from 'express';
 import category from '../routes/category.routes';
 import person from '../routes/person.routes';
+import sell from '../routes/sell.routes';
 import cors from 'cors';
 
 import morgan from 'morgan';
@@ -11,6 +12,7 @@ class Server{
     private apiPaths={
         category: '/api/category',
         person: '/api/person',
+        sell: '/api/sell',
     }
     constructor(){
         this.app=express();
@@ -30,6 +32,7 @@ class Server{
         console.log('routess');
         this.app.use(this.apiPaths.category, category);
         this.app.use(this.apiPaths.person, person);
+        this.app.use(this.apiPaths.sell, sell);
         
     }
     listen(){
