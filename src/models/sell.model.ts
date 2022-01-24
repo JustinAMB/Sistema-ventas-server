@@ -1,7 +1,7 @@
 export default interface Sell{
     id?:number;
     person:number;
-    created:Date;
+    created?:Date;
     user:number;
     total:number;
 }
