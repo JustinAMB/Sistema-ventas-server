@@ -9,12 +9,7 @@ export const getPersonById=async (req:Request,res:Response)=>{
     try{
         const {id}=req.params;
         const data=await getPerson(Number(id));
-        if(!data){
-            return res.status(400).json({
-                ok:false,
-                message:'Person not found'
-            });
-        }
+        
 
         return res.status(200).json({
             ok:true,
