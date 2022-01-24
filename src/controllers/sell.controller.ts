@@ -7,10 +7,11 @@ import SellDetail from "../models/sellDetail.model";
 
 export const addSell=async(req:Request,res:Response)=>{
     try{
+        const {kind}=req.params ;
         const {person,total,user}=req.body;
         const detailsReq=req.body.details as Array<any>;
         const newSell:Sell={ person,user,total };
-        const result=await createSell(newSell);
+        const result=await createSell(Number(kind),newSell);
 
         if(!result){
             return res.status(401).json({
