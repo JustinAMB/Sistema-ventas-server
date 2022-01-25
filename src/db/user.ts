@@ -12,7 +12,11 @@ export const getUser=async (id:number):Promise<User>=>{
     
     return data[0][0] as User;
 }
+export const getUsers=async(is_active:boolean):Promise<User[]>=>{
+    const data =await connection.query(`select id,name,lastname,email,image,rol from user where is_active=?`, [is_active]) as RowDataPacket[][];
+    return data[0] as User[];
 
+}
 export const getUserByEmail=async (email:string):Promise<User>=>{
     
     console.log(email);
