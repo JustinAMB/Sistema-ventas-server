@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import {getUserByEmail, getUsers} from '../db/user';
-import { comparePassword } from '../helpers/encryption';
+import {createUser, getUserByEmail, getUsers} from '../db/user';
+import { comparePassword ,encryptPassword} from '../helpers/encryption';
+import User from '../models/user.model';
 export const singIn=async(req:Request, res:Response)=>{
     try{
         const {email, password}=req.body;
@@ -41,13 +42,44 @@ export const singIn=async(req:Request, res:Response)=>{
 }
 
 
-export  const getAllUsers=(req:Request,res:Response)=>{
+export  const getAllUsers=async (req:Request,res:Response)=>{
     try{
         const {is_active}=req.query;
-        const data=getUsers(Boolean(is_active));
+        const data=await getUsers(Boolean(is_active));
         return res.status(200).json({
             ok:true,
             data
+        });
+    }
+    catch(err){
+        res.status(501).json({
+            ok:false,
+            msg:err
+        })
+    }
+}
+
+export const addUser = async(req:Request,res:Response)=>{
+    try{
+        const {name,email,lastname,image,rol}=req.body;
+        const newUser:User={
+            name,
+            email,
+            image,
+            lastname,
+            rol,   
+        }
+        newUser.password=await encryptPassword('12345678');
+        const result=await createUser(newUser);
+        if(!result){
+            return res.status(500).json({
+                ok:false,
+                message:'User not created'
+            });
+        }
+        return res.status(200).json({
+            ok:true,
+            message:'User created'
         });
     }
     catch(err){
