@@ -38,3 +38,10 @@ export const updateUser=async (id:number,user:User):Promise<Response>=>{
     const data= await connection.query(`call UpdateUser(?,?,?,?,?,?,?)`,[id,name,lastname,email,password,image,rol]) as RowDataPacket[][] ;
     return data[0][0] as Response;
 }
+
+
+export const activeUser=async(id:number,status:boolean):Promise<Response>=>{
+    const data= await connection.query(`call IeActivarUser(?,?)`,[id,status]) as RowDataPacket[][] ;
+    return data[0][0] as Response;
+
+}
