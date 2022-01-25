@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import {createUser, getUserByEmail, getUsers} from '../db/user';
+import {createUser, getUserByEmail, getUsers, updateUser} from '../db/user';
 import { comparePassword ,encryptPassword} from '../helpers/encryption';
 import User from '../models/user.model';
 export const singIn=async(req:Request, res:Response)=>{
@@ -80,6 +80,37 @@ export const addUser = async(req:Request,res:Response)=>{
         return res.status(200).json({
             ok:true,
             message:'User created'
+        });
+    }
+    catch(err){
+        res.status(501).json({
+            ok:false,
+            msg:err
+        })
+    }
+}
+export const updateUserById = async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const {name,email,lastname,password,image,rol}=req.body;
+        const uUser:User={
+            name,
+            email,
+            image,
+            lastname,
+            rol,   
+        }
+        uUser.password=await encryptPassword(password);
+        const result=await updateUser(Number(id),uUser);
+        if(!result){
+            return res.status(500).json({
+                ok:false,
+                message:'User not updated'
+            });
+        }
+        return res.status(200).json({
+            ok:true,
+            message:'User updated'
         });
     }
     catch(err){
