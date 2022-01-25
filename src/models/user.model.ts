@@ -4,6 +4,6 @@ export default interface User{
     lastname:string;
     image:string;
     email:string;
-    password:string;
+    password?:string;
     rol:number;
 }
