@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import {activeUser, createUser, getUserByEmail, getUsers, updateUser} from '../db/user';
+import {activeUser, createUser, getUser, getUserByEmail, getUsers, updateUser} from '../db/user';
 import { comparePassword ,encryptPassword} from '../helpers/encryption';
 import User from '../models/user.model';
 export const singIn=async(req:Request, res:Response)=>{
@@ -59,6 +59,24 @@ export  const getAllUsers=async (req:Request,res:Response)=>{
     }
 }
 
+
+export  const getUserById=async (req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const data=await getUser(Number(id));
+        return res.status(200).json({
+            ok:true,
+            data
+        });
+    }
+    catch(err){
+        res.status(501).json({
+            ok:false,
+            msg:err
+        })
+    }
+}
+
 export const addUser = async(req:Request,res:Response)=>{
     try{
         const {name,email,lastname,image,rol}=req.body;
@@ -89,6 +107,13 @@ export const addUser = async(req:Request,res:Response)=>{
         })
     }
 }
+
+
+
+
+
+
+
 export const updateUserById = async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
