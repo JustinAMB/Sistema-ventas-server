@@ -1,11 +1,8 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import {getUserByEmail} from '../db/user';
+import {getUserByEmail, getUsers} from '../db/user';
 import { comparePassword } from '../helpers/encryption';
 export const singIn=async(req:Request, res:Response)=>{
-    
-
-
     try{
         const {email, password}=req.body;
         console.log(email, password); 
@@ -16,7 +13,7 @@ export const singIn=async(req:Request, res:Response)=>{
                 message:'User not found'
             });
         }
-        const isMatch=await comparePassword(password, user.password);
+        const isMatch=await comparePassword(password, user.password!);
         if(!isMatch){
             return res.status(400).json({
                 ok:false,
@@ -37,6 +34,24 @@ export const singIn=async(req:Request, res:Response)=>{
     }
     catch(err){
         res.status(500).json({
+            ok:false,
+            msg:err
+        })
+    }
+}
+
+
+export  const getAllUsers=(req:Request,res:Response)=>{
+    try{
+        const {is_active}=req.query;
+        const data=getUsers(Boolean(is_active));
+        return res.status(200).json({
+            ok:true,
+            data
+        });
+    }
+    catch(err){
+        res.status(501).json({
             ok:false,
             msg:err
         })
