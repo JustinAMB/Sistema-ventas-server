@@ -1,5 +1,6 @@
 import {Response,Request} from 'express';
 import { activeProduct, createProduct, getProduct, getProducts, updateProduct } from '../db/product';
+import { convertBoolean } from '../helpers/stringBool';
 import Product from '../models/product.model';
 
 
@@ -28,8 +29,8 @@ export const getProductById=async(req:Request,res:Response)=>{
 export const getAllProduct=async(req:Request,res:Response)=>{
 
     try{
-        const {is_active} = req.query;
-        const data=await getProducts(Boolean(is_active)) ||[];
+        const is_active = req.query['is_active'] as string; 
+        const data=await getProducts(convertBoolean(is_active)) ||[];
         return res.status(200).json({
             ok:true,
             data
@@ -48,9 +49,9 @@ export const getAllProduct=async(req:Request,res:Response)=>{
 export const activeProductbyId=async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
-        const {is_active} = req.query;
+        const is_active = req.query['is_active'] as string;
         
-        const result=await activeProduct(Number(id),Boolean(is_active));
+        const result=await activeProduct(Number(id),convertBoolean(is_active));
         if(!result){
             return res.status(401).json({
                 ok:false,
