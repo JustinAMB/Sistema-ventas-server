@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import {activeUser, createUser, getUser, getUserByEmail, getUsers, updateUser} from '../db/user';
 import { comparePassword ,encryptPassword} from '../helpers/encryption';
+import { convertBoolean } from '../helpers/stringBool';
 import User from '../models/user.model';
 export const singIn=async(req:Request, res:Response)=>{
     try{
@@ -44,8 +45,8 @@ export const singIn=async(req:Request, res:Response)=>{
 
 export  const getAllUsers=async (req:Request,res:Response)=>{
     try{
-        const {is_active}=req.query;
-        const data=await getUsers(Boolean(is_active));
+        const is_active=req.query.iss_active as string;
+        const data=await getUsers(convertBoolean(is_active));
         return res.status(200).json({
             ok:true,
             data
@@ -148,9 +149,10 @@ export const updateUserById = async(req:Request,res:Response)=>{
 
 export const activeUserById = async(req:Request,res:Response)=>{
     try{
+      
         const {id}=req.params;
-        const {status}=req.query;
-        const result=await activeUser(Number(id),Boolean(status));
+        const status=req.query.status as string;
+        const result=await activeUser(Number(id),convertBoolean(status));
         if(!result){
             return res.status(500).json({
                 ok:false,
