@@ -51,9 +51,10 @@ export const addCategory= async(req:Request,res:Response)=>{
             name,
             
         }
-        const result=await createCategory(newCategory);
-        if(!result){
-            return res.status(500).json({
+        const {exito}=await createCategory(newCategory) ;
+        
+        if(!exito){
+            return res.status(401).json({
                 ok:false,
                 message:'Category not created'
             });
@@ -81,9 +82,9 @@ export const updateCategoryById= async(req:Request,res:Response)=>{
             name,
         
         }
-        const result=await updateCategory(Number(id),uCategory);
-        if(!result){
-            return res.status(500).json({
+        const {exito}=await updateCategory(Number(id),uCategory);
+        if(!exito){
+            return res.status(401).json({
                 ok:false,
                 message:'Category not updated'
             });

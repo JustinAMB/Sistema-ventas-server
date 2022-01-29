@@ -90,12 +90,14 @@ export const addUser = async(req:Request,res:Response)=>{
         }
         newUser.password=await encryptPassword('12345678');
         const result=await createUser(newUser);
-        if(!result){
-            return res.status(500).json({
+        
+        if(result.exito===0){
+            return res.status(401).json({
                 ok:false,
                 message:'User not created'
             });
         }
+        
         return res.status(200).json({
             ok:true,
             message:'User created'

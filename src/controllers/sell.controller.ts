@@ -11,9 +11,9 @@ export const addSell=async(req:Request,res:Response)=>{
         const {person,total,user}=req.body;
         const detailsReq=req.body.details as Array<any>;
         const newSell:Sell={ person,user,total };
-        const result=await createSell(Number(kind),newSell);
+        const {exito}=await createSell(Number(kind),newSell);
 
-        if(!result){
+        if(!exito){
             return res.status(401).json({
                 ok:false,
                 message:'Sell not created'
@@ -23,20 +23,20 @@ export const addSell=async(req:Request,res:Response)=>{
         const details=detailsReq.map((detail)=>{
             return {
                 ...detail,
-                sell:result.exito
+                sell:exito
             }
         }) as SellDetail[];
         details.forEach(async(detail,index)=>{
-            const result=await createSellDetail(detail);
-            if(!result){
+            const {exito}=await createSellDetail(detail);
+            if(!exito){
                 return res.status(401).json({
                     ok:false,
                     message:'Sell not created'
                 });
             }
-            details[index].id=result.exito;
+            details[index].id=exito;
         })
-        newSell.id=result.exito;
+        newSell.id=exito;
         return res.status(200).json({
             ok:true,
             message:'Sell created',

@@ -51,8 +51,8 @@ export const activeProductbyId=async(req:Request,res:Response)=>{
         const {id}=req.params;
         const is_active = req.query['is_active'] as string;
         
-        const result=await activeProduct(Number(id),convertBoolean(is_active));
-        if(!result){
+        const {exito}=await activeProduct(Number(id),convertBoolean(is_active));
+        if(!exito){
             return res.status(401).json({
                 ok:false,
                 message:'Product not active'
@@ -88,8 +88,8 @@ export const updateProductById=async(req:Request,res:Response)=>{
             name,description,price,barcode,unit,category,inventary,inventary_min,image
         }
         
-        const result=await updateProduct(Number(id),uProduct);
-        if(!result){
+        const {exito}=await updateProduct(Number(id),uProduct);
+        if(!exito){
             return res.status(401).json({
                 ok:false,
                 message:'Product not updated'
@@ -116,8 +116,8 @@ export const addProduct=async(req:Request,res:Response)=>{
             name,description,price,barcode,unit,category,inventary,inventary_min,image
         }
         
-        const result=await createProduct(newProduct);
-        if(!result){
+        const {exito}=await createProduct(newProduct);
+        if(!exito){
             return res.status(401).json({
                 ok:false,
                 message:'Product not created'

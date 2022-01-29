@@ -42,7 +42,7 @@ export const getAllPerson=async(req:Request,res:Response)=>{
     }
 }
 
-export const addPerson=(req:Request,res:Response)=>{
+export const addPerson=async(req:Request,res:Response)=>{
    
     try{
         const {kind}=req.params;
@@ -50,8 +50,8 @@ export const addPerson=(req:Request,res:Response)=>{
         const newPerson:Person={
             name,email,lastname,address,phone
         }
-        const result=createPerson(Number(kind),newPerson);
-        if(!result){
+        const {exito}=await createPerson(Number(kind),newPerson);
+        if(!exito){
             return res.status(500).json({
                 ok:false,
                 message:'Person not created'
@@ -72,15 +72,15 @@ export const addPerson=(req:Request,res:Response)=>{
 } 
 
 
-export  const updatePersonById=(req:Request,res:Response)=>{
+export  const updatePersonById=async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
         const {name,email,lastname,address,phone}=req.body;
         const uPerson:Person={
             name,email,lastname,address,phone}
 
-        const result=updatePerson(Number(id),uPerson);
-        if(!result){
+        const {exito}=await updatePerson(Number(id),uPerson);
+        if(!exito){
             return res.status(500).json({
                 ok:false,
                 message:'Person not updated'
