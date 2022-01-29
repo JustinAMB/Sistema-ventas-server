@@ -17,5 +17,5 @@ export const getSell=async(id:number):Promise<SellDetail>=>{
 export const createSellDetail=async(sellDetail:SellDetail):Promise<Response>=>{
     const {sell,product,quantity,priceUnit}=sellDetail;
     const data =await connection.query('call createSellDetail(?,?,?,?)',[sell,product,quantity,priceUnit]) as RowDataPacket[][];
-    return data[0][0] as Response;
+    return data[0][0][0]  as Response;
 }

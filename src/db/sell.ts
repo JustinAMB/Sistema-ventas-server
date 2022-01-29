@@ -16,5 +16,5 @@ export const getSell=async(id:number):Promise<Sell>=>{
 export const createSell=async(kind:number,sell:Sell):Promise<Response>=>{
     const {person,total,user}=sell;
     const data =await connection.query('call createSell(?,?,?,?)',[kind,user,person,total]) as RowDataPacket[][];
-    return data[0][0] as Response;
+    return data[0][0][0] as Response;
 }

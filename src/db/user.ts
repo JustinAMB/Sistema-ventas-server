@@ -30,13 +30,13 @@ export const getUserByEmail=async (email:string):Promise<User>=>{
 export const createUser=async (user:User):Promise<Response>=>{
     const {name,email,lastname,rol,image,password}=user;
     const data= await connection.query(`call CreateUser(?,?,?,?,?,?)`,[name,lastname,email,password,image,rol]) as RowDataPacket[][] ;
-    return data[0][0] as Response;
+    return data[0][0][0] as Response;
 }
 
 export const updateUser=async (id:number,user:User):Promise<Response>=>{
     const {name,email,lastname,rol,image,password}=user;
     const data= await connection.query(`call UpdateUser(?,?,?,?,?,?,?)`,[id,name,lastname,email,password,image,rol]) as RowDataPacket[][] ;
-    return data[0][0] as Response;
+    return data[0][0][0] as Response;
 }
 
 

@@ -18,13 +18,13 @@ export const getProducts=async(is_active:boolean):Promise<Product[]>=>{
 export const createProduct=async(product:Product):Promise<Response>=>{
     const {name,description,price,barcode,unit,category,inventary,inventary_min,image}=product;
     const data= await connection.query('call createProduct(?,?,?,?,?,?,?,?,?)',[name,description,price,barcode,unit,category,inventary,inventary_min,image]) as RowDataPacket[][];
-    return data[0][0] as Response;
+    return data[0][0][0]  as Response;
 
 }
 export const updateProduct=async(id:number,product:Product):Promise<Response>=>{
     const {name,description,price,barcode,unit,category,inventary,inventary_min,image}=product;
     const data= await connection.query('call updateProduct(?,?,?,?,?,?,?,?,?,?)',[id,name,description,price,barcode,unit,category,inventary,inventary_min,image]) as RowDataPacket[][];
-    return data[0][0] as Response;
+    return data[0][0][0]  as Response;
 
 }
 
@@ -32,5 +32,5 @@ export const updateProduct=async(id:number,product:Product):Promise<Response>=>{
 
 export const activeProduct=async(id:number,is_active:boolean):Promise<Response>=>{
     const data=await connection.query('call activeProduct(?,?)',[id,is_active]) as RowDataPacket[][];
-    return data[0][0] as Response;
+    return data[0][0][0]  as Response;
 }

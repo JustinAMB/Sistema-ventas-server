@@ -24,16 +24,17 @@ export const createCategory=async (category:Category):Promise<Response>=>{
         
     console.log(category);
     
-    const data=await connection.query(`call CreateCategory(?,?,?)`, [category.image,category.name,category.description]) as RowDataPacket[][];
-    
-    return data[0][0] as Response;
+    const data=await connection.query(`call CreateCategory(?)`, [category.name]) as RowDataPacket[][];
+    const result:Response=data[0][0][0] as Response;
+    console.log(result);
+    return result;
 }
 
 export const updateCategory=async (id:number,category:Category):Promise<Response>=>{
         
     console.log(category);
     
-    const data=await connection.query(`call UpdateCategory(?,?,?,?)`, [id,category.image,category.name,category.description]) as RowDataPacket[][];
+    const data=await connection.query(`call UpdateCategory(?,?)`, [id,category.name]) as RowDataPacket[][];
     
     return data[0][0] as Response;
 }
