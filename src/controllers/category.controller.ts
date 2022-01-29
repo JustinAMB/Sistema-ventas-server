@@ -44,12 +44,12 @@ export const getAllCategory= async(req:Request,res:Response)=>{
 
 export const addCategory= async(req:Request,res:Response)=>{
     try{
-        const {image,name,description}=req.body;
+        const {name}=req.body;
        
         const newCategory:Category={
-            image,
+            
             name,
-            description
+            
         }
         const result=await createCategory(newCategory);
         if(!result){
@@ -74,12 +74,12 @@ export const addCategory= async(req:Request,res:Response)=>{
 export const updateCategoryById= async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
-        const {image,name,description}=req.body;
+        const {name,}=req.body;
        
         const uCategory:Category={
-            image,
+            
             name,
-            description
+        
         }
         const result=await updateCategory(Number(id),uCategory);
         if(!result){
