@@ -36,5 +36,12 @@ export const updateCategory=async (id:number,category:Category):Promise<Response
     
     const data=await connection.query(`call UpdateCategory(?,?)`, [id,category.name]) as RowDataPacket[][];
     
-    return data[0][0] as Response;
+    return data[0][0][0] as Response;
+}
+export const activeCategory=async (id:number,status:boolean):Promise<Response>=>{
+        
+    
+    const data=await connection.query(`call ActiveCategory(?,?)`, [id,status]) as RowDataPacket[][];
+    
+    return data[0][0][0] as Response;
 }
