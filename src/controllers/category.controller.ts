@@ -1,4 +1,5 @@
 import { Request,Response } from "express";
+import { activeCategory } from "./../db/category";
 import { createCategory, getCategory,getCategorys, updateCategory } from "../db/category";
 import Category from "../models/category.model";
 import { convertBoolean } from '../helpers/stringBool';
@@ -103,4 +104,33 @@ export const updateCategoryById= async(req:Request,res:Response)=>{
         })
     }
 }
+
+export const activeCategoryById= async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const {state}=req.body;
+       
+        
+        const {exito}=await activeCategory(Number(id),convertBoolean(state));
+        if(!exito){
+            return res.status(401).json({
+                ok:false,
+                message:'Category not actived'
+            });
+        }
+
+        return res.status(201).json({
+            ok:true,
+            message:'Category actived'
+        });
+    }
+    catch(err){
+        res.status(500).json({
+            ok:false,
+            msg:err
+        })
+    }
+}
+
+
 
