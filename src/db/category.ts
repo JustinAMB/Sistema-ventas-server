@@ -8,7 +8,7 @@ import  Response  from '../models/response.model';
 
 export const getCategorys=async (state:boolean):Promise<Category[]>=>{
     
-    const data=await connection.query(`select id,name from category where=? `,[state]) as RowDataPacket[][];
+    const data=await connection.query(`select id,name from category where state=? `,[state]) as RowDataPacket[][];
     
     return data[0] as Category[];
 }
