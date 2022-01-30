@@ -1,7 +1,7 @@
 import { Request,Response } from "express";
 import { createCategory, getCategory,getCategorys, updateCategory } from "../db/category";
 import Category from "../models/category.model";
-
+import { convertBoolean } from '../helpers/stringBool';
 
 export const getCategoryById= async(req:Request,res:Response)=>{
     try{
@@ -28,7 +28,8 @@ export const getCategoryById= async(req:Request,res:Response)=>{
 
 export const getAllCategory= async(req:Request,res:Response)=>{
     try{
-        const data=await getCategorys();
+        const state=req.query["state"] as string;
+        const data=await getCategorys(convertBoolean(state))  || [];
         return res.status(200).json({
             ok:true,
             data
