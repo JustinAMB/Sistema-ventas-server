@@ -38,7 +38,7 @@ export const updatePerson=async (id:number,person:Person):Promise<Response>=>{
     const data=await connection.query(`call UpdatePerson(?,?,?,?,?,?)`, [id,person.name,person.email,person.lastname,person.address,person.phone]) as RowDataPacket[][];
     return data[0][0][0]  as Response;
 }
-export const activeCategory=async (id:number,status:boolean):Promise<Response>=>{
+export const activePerson=async (id:number,status:boolean):Promise<Response>=>{
         
     
     const data=await connection.query(`call ActivePerson(?,?)`, [id,status]) as RowDataPacket[][];
