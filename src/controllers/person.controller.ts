@@ -1,5 +1,6 @@
 import { Request,Response } from "express";
-import { createPerson, getPerson, getPersons, updatePerson } from "../db/person";
+import { activePerson, createPerson, getPerson, getPersons, updatePerson } from "../db/person";
+import { convertBoolean } from "../helpers/stringBool";
 import Person from "../models/person.model";
 
 
@@ -89,6 +90,33 @@ export  const updatePersonById=async(req:Request,res:Response)=>{
         return res.status(201).json({
             ok:true,
             message:'Person  updated'
+        });
+    }
+    catch(err){
+        res.status(501).json({
+            ok:false,
+            msg:err
+        })
+    }
+}
+
+
+export  const activePersonById=async(req:Request,res:Response)=>{
+    try{
+        const {id}=req.params;
+        const {state}=req.body;
+        
+
+        const {exito}=await activePerson(Number(id),convertBoolean(state));
+        if(!exito){
+            return res.status(401).json({
+                ok:false,
+                message:'Person not actived'
+            });
+        }
+        return res.status(201).json({
+            ok:true,
+            message:'Person  actived'
         });
     }
     catch(err){
