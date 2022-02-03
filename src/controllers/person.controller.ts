@@ -28,7 +28,8 @@ export const getPersonById=async (req:Request,res:Response)=>{
 export const getAllPerson=async(req:Request,res:Response)=>{
     try{
         const {kind}=req.params;
-        const data=await getPersons(Number(kind));
+        const state=req.query.state as string;
+        const data=await getPersons(Number(kind),convertBoolean(state));
         
         return res.status(200).json({
             ok:true,
