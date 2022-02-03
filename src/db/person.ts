@@ -15,10 +15,10 @@ export const getPerson=async (id:number):Promise<Person>=>{
     return data[0][0] as Person;
 }
 
-export const getPersons=async (kind:number):Promise<Person[]>=>{
+export const getPersons=async (kind:number,state:boolean):Promise<Person[]>=>{
     
     console.log(kind);
-    const data=await connection.query(`select * from person where kind=?`, [kind]) as RowDataPacket[][];
+    const data=await connection.query(`call listPersons(?,?)`, [kind,state]) as RowDataPacket[][];
     return data[0] as Person[];
 }
 
