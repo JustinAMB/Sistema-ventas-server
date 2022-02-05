@@ -34,3 +34,9 @@ export const activeProduct=async(id:number,is_active:boolean):Promise<Response>=
     const data=await connection.query('call activeProduct(?,?)',[id,is_active]) as RowDataPacket[][];
     return data[0][0][0]  as Response;
 }
+
+
+export const updateImageProduct=async(id:number,img:string):Promise<Response>=>{
+    const data=await connection.query('call updateImageProduct(?,?)',[id,img]) as RowDataPacket[][];
+    return data[0][0][0]  as Response;
+}
