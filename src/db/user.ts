@@ -7,7 +7,7 @@ import connection from './connection';
 
 export const getUser=async (id:number):Promise<User>=>{
    
-    console.log(id);
+    
     const data=await connection.query(`select * from user where id=?`, [id]) as RowDataPacket[][];
     
     return data[0][0] as User;
@@ -44,4 +44,9 @@ export const activeUser=async(id:number,status:boolean):Promise<Response>=>{
     const data= await connection.query(`call IeActivarUser(?,?)`,[id,status]) as RowDataPacket[][] ;
     return data[0][0] as Response;
 
+}
+
+export const updateImageUser=async(id:number,img:string):Promise<Response>=>{
+    const data=await connection.query('call updateImageUser(?,?)',[id,img]) as RowDataPacket[][];
+    return data[0][0][0]  as Response;
 }
