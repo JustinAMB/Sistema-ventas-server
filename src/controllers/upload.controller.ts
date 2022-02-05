@@ -69,3 +69,17 @@ export const fileUpload = ( req:Request, res :Response) => {
     });
 
 }
+
+
+export const  getImage=(req:Request, res:Response)=>{
+    const tipo = req.params.tipo;
+    const foto = req.params.foto;
+    const pathImage = path.join( __dirname, `../../uploads/${ tipo }/${ foto }`);
+    console.log(pathImage)
+    if (fs.existsSync(pathImage)) {
+        res.sendFile(pathImage);
+    } else {
+        const pathNoImage = path.join( __dirname, '../assets/no-image.jpg');
+        res.sendFile(pathNoImage);
+    }
+}
