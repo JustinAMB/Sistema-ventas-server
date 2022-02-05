@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {fileUpload} from '../controllers/upload.controller';
+import {fileUpload, getImage} from '../controllers/upload.controller';
 
 import  expressFileUpload from'express-fileupload';
 import { verifyToken } from '../middleware/authJwt';
@@ -13,6 +13,7 @@ router.use(expressFileUpload());
 
 
 router.put('/:tipo/:id',[verifyToken], fileUpload);
+router.get('/:tipo/:foto', getImage);
 
 
 
