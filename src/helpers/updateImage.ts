@@ -2,35 +2,37 @@ import fs from 'fs';
 import { getProduct, updateImageProduct } from '../db/product';
 import { getUser, updateImageUser } from '../db/user';
 const borrarImagen = ( path:string ) => {
+    
     if ( fs.existsSync( path ) ) {
-        // borrar la imagen anterior
+        
         fs.unlinkSync( path );
     }
 }
-export const actualizarImagen = async(tipo:string, id:number, nombreArchivo:string) => {
+export const updateImage = async(tipo:string, id:number, nombreArchivo:string):Promise<boolean> => {
 
     let pathViejo:string = '';
     
     switch( tipo ) {
        
         
-        case 'hospitales':
+        case 'products':
             const product = await getProduct(id);
             if ( !product ) {
-                console.log('No es un hospital por id');
+                console.log('No es un producto por id');
                 return false;
             }
 
-            pathViejo = `./uploads/hospitales/${ product.image }`;
+            pathViejo = `uploads/products/${ product.image }`;
             borrarImagen( pathViejo );
 
             
-            await updateImageProduct(id,nombreArchivo);
-            return true;
+            const {exito}=await updateImageProduct(id,nombreArchivo);
+            
+            return exito>0;
 
         break;
         
-        case 'usuarios':
+        case 'users':
 
             const usuario = await getUser(id);
             if ( !usuario ) {
@@ -38,13 +40,13 @@ export const actualizarImagen = async(tipo:string, id:number, nombreArchivo:stri
                 return false;
             }
 
-            pathViejo = `./uploads/hospitales/${ usuario.image }`;
+            pathViejo = `uploads/users/${ usuario.image }`;
             borrarImagen( pathViejo );
-            await updateImageUser(id,nombreArchivo);
-            return true;
+            const {exito:ext}=await updateImageUser(id,nombreArchivo);
+            return ext>0;
 
         break;
     }
-
+    return false;
 
 }
