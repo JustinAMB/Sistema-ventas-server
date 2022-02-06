@@ -12,7 +12,7 @@ router.use(expressFileUpload());
 
 
 
-router.put('/:tipo/:id',[verifyToken], fileUpload);
+router.put('/:tipo',[verifyToken], fileUpload);
 router.get('/:tipo/:foto', getImage);
 
 
