@@ -79,7 +79,7 @@ export const  getImage=(req:Request, res:Response)=>{
     if (fs.existsSync(pathImage)) {
         res.sendFile(pathImage);
     } else {
-        const pathNoImage = path.join( __dirname, '../assets/no-image.jpg');
+        const pathNoImage = path.join( __dirname, '../../uploads/no-img.jpg');
         res.sendFile(pathNoImage);
     }
 }
