@@ -7,7 +7,7 @@ import { FileArray, UploadedFile } from 'express-fileupload';
 export const fileUpload = ( req:Request, res :Response) => {
 
     const tipo = req.params.tipo;
-    const id   = req.params.id as unknown as number;
+    
     const files=req.files as FileArray ;
     console.log(tipo)
     // Validar tipo
@@ -15,7 +15,7 @@ export const fileUpload = ( req:Request, res :Response) => {
     if ( !tiposValidos.includes(tipo) ){
         return res.status(400).json({
             ok: false,
-            msg: 'No es un médico, usuario u hospital (tipo)'
+            message: 'No es una foto de un usuario o producto'
         });
     }
 
@@ -59,12 +59,12 @@ export const fileUpload = ( req:Request, res :Response) => {
         }
 
         // Actualizar base de datos
-        updateImage( tipo, id, nombreArchivo );
+        
 
         res.json({
             ok: true,
-            msg: 'Archivo subido',
-            nombreArchivo
+            message: 'Archivo subido',
+           data: nombreArchivo
         });
     });
 
