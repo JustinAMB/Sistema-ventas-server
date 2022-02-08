@@ -83,9 +83,9 @@ export const activeProductbyId=async(req:Request,res:Response)=>{
 export const updateProductById=async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
-        const {name,description,price,barcode,unit,category,inventary_min,image}=req.body;
+        const {name,price,barcode,unit,category,inventary_min,image}=req.body;
         const uProduct:Product={
-            name,description,price,barcode,unit,category,inventary_min,image
+            name,price,barcode,unit,category,inventary_min,image
         }
         
         const {exito}=await updateProduct(Number(id),uProduct);
@@ -111,9 +111,9 @@ export const updateProductById=async(req:Request,res:Response)=>{
 
 export const addProduct=async(req:Request,res:Response)=>{
     try{
-        const {name,description,price,barcode,unit,category,inventary_min,image}=req.body;
+        const {name,price,barcode,unit,category,inventary_min,image}=req.body;
         const newProduct:Product={
-            name,description,price,barcode,unit,category,inventary_min,image
+            name,price,barcode,unit,category,inventary_min,image
         }
         
         const {exito}=await createProduct(newProduct);
