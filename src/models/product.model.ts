@@ -2,7 +2,7 @@ export default interface Product{
     id?:number;
     name:string;
     image?:string;
-    description:string;
+    description?:string;
     barcode:string;
     price:number;
     inventary_min:number;
