@@ -10,7 +10,7 @@ const router=Router();
 
 router.post('/signIn',singIn);
 
-router.post('/',[verifyToken,isAdmin,verifyIdUser],addUser);
+router.post('/',[verifyToken,isAdmin],addUser);
 router.put('/:id',[verifyToken,isAdmin,verifyIdUser],updateUserById);
 router.get('/',[verifyToken,isAdmin],getAllUsers);
 router.get('/:id',[verifyToken,verifyIdUser],getUserById);
