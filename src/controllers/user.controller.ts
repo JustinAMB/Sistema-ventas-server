@@ -45,7 +45,7 @@ export const singIn=async(req:Request, res:Response)=>{
 
 export  const getAllUsers=async (req:Request,res:Response)=>{
     try{
-        const is_active=req.query.iss_active as string;
+        const is_active=req.query.is_active as string;
         const data=await getUsers(convertBoolean(is_active));
         return res.status(200).json({
             ok:true,
@@ -120,7 +120,7 @@ export const addUser = async(req:Request,res:Response)=>{
 export const updateUserById = async(req:Request,res:Response)=>{
     try{
         const {id}=req.params;
-        const {name,email,lastname,password,image,rol}=req.body;
+        const {name,email,lastname,image,rol}=req.body;
         const uUser:User={
             name,
             email,
@@ -128,9 +128,9 @@ export const updateUserById = async(req:Request,res:Response)=>{
             lastname,
             rol,   
         }
-        uUser.password=await encryptPassword(password);
-        const result=await updateUser(Number(id),uUser);
-        if(!result){
+       
+        const {exito}=await updateUser(Number(id),uUser);
+        if(!exito){
             return res.status(500).json({
                 ok:false,
                 message:'User not updated'
@@ -142,9 +142,10 @@ export const updateUserById = async(req:Request,res:Response)=>{
         });
     }
     catch(err){
+        
         res.status(501).json({
             ok:false,
-            msg:err
+            message:err
         })
     }
 }
@@ -154,8 +155,8 @@ export const activeUserById = async(req:Request,res:Response)=>{
       
         const {id}=req.params;
         const status=req.query.status as string;
-        const result=await activeUser(Number(id),convertBoolean(status));
-        if(!result){
+        const {exito}=await activeUser(Number(id),convertBoolean(status));
+        if(!exito){
             return res.status(500).json({
                 ok:false,
                 message:'User not active'
@@ -169,7 +170,7 @@ export const activeUserById = async(req:Request,res:Response)=>{
     catch(err){
         res.status(501).json({
             ok:false,
-            msg:err
+            message:err
         })
     }
 }
