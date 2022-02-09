@@ -14,8 +14,8 @@ export const verifyToken = async(req:Request, res:Response, next: Function) => {
 
         }
         const decoded = verify(token, process.env.Secret!)as JwtPayload;
-        req.body.userId=decoded.id;
-        
+        req.body.userId=decoded.id as number;
+        console.log(req.body.userId);
         const data=await getUser(decoded.id);
         if (!data) {
             return res.status(400).send({ ok: false, message: 'User not found.' });
@@ -31,7 +31,10 @@ export const verifyToken = async(req:Request, res:Response, next: Function) => {
 }
 export const isAdmin = async (req:Request, res:Response, next:Function) => {
     try {
-      const user = await getUser(req.body.userId);
+       
+        const { userId } = req.body;
+      
+      const user = await getUser(userId);
       
       
         if (user.rol===1) {
