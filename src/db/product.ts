@@ -40,3 +40,9 @@ export const updateImageProduct=async(id:number,img:string):Promise<Response>=>{
     const data=await connection.query('call updateImageProduct(?,?)',[id,img]) as RowDataPacket[][];
     return data[0][0][0]  as Response;
 }
+export const searchInventary=async(term:string):Promise<Product[]>=>{
+    
+    const data= await connection.query('call searchInventary(?)',[term]) as RowDataPacket[][];
+    return data[0][0]  as Product[];
+
+}
