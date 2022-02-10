@@ -1,5 +1,5 @@
 import {Response,Request} from 'express';
-import { activeProduct, createProduct, getProduct, getProducts, updateProduct } from '../db/product';
+import { activeProduct, createProduct, getProduct, getProducts, searchInventary, updateProduct } from '../db/product';
 import { convertBoolean } from '../helpers/stringBool';
 import Product from '../models/product.model';
 
@@ -31,6 +31,26 @@ export const getAllProduct=async(req:Request,res:Response)=>{
     try{
         const is_active = req.query['is_active'] as string; 
         const data=await getProducts(convertBoolean(is_active)) ||[];
+        return res.status(200).json({
+            ok:true,
+            data
+        });
+    }
+    catch(err){
+        res.status(501).json({
+            ok:false,
+            msg:err
+        })
+    }
+}
+
+
+
+export const searchInventaryByTerm=async(req:Request,res:Response)=>{
+
+    try{
+        const term = req.query['term'] as string; 
+        const data=await searchInventary(term) ||[];
         return res.status(200).json({
             ok:true,
             data
