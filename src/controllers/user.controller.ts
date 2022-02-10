@@ -157,7 +157,7 @@ export const activeUserById = async(req:Request,res:Response)=>{
         const status=req.query.status as string;
         const {exito}=await activeUser(Number(id),convertBoolean(status));
         if(!exito){
-            return res.status(500).json({
+            return res.status(404).json({
                 ok:false,
                 message:'User not active'
             });
