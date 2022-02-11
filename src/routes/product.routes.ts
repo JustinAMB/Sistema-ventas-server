@@ -9,10 +9,10 @@ import { barcodeValidator } from '../middleware/unique';
 const router=Router();
 
 
-
+router.get('/searchInventary/',[verifyToken],searchInventaryByTerm);
 router.get('/:id',[verifyToken,verifyIdProduct],getProductById);
 router.get('/',[verifyToken],getAllProduct);
-router.get('/searchInventary/',[verifyToken],searchInventaryByTerm);
+
 router.post('/',[verifyToken,isAdmin,barcodeValidator],addProduct);
 router.post('/:id',[verifyToken,isAdmin,verifyIdProduct],activeProductbyId);
 router.put('/:id',[verifyToken,isAdmin,verifyIdProduct],updateProductById);
