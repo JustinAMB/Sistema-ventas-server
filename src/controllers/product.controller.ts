@@ -49,7 +49,7 @@ export const getAllProduct=async(req:Request,res:Response)=>{
 export const searchInventaryByTerm=async(req:Request,res:Response)=>{
 
     try{
-        const term = req.query['term'] as string; 
+        const term = req.query['term'] as string  || ''; 
         const data=await searchInventary(term) ||[];
         return res.status(200).json({
             ok:true,
