@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getCategory } from "../db/category";
-import { getPerson } from "../db/person";
+import { getPerson, getPersonEmail } from "../db/person";
 import { getProduct } from "../db/product";
 import { getUser } from "../db/user";
 
@@ -84,6 +84,32 @@ export const verifyIdUser = async (req:Request, res:Response, next:Function) => 
       }
       next();
 
+    
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ ok:false,message: error });
+  }
+};
+
+
+
+export const verifyEmailBySell = async (req:Request, res:Response, next:Function) => {
+  try {
+      const kind = req.params['kind'] as unknown as number; 
+      const { email } = req.body;
+      const person = await getPersonEmail(email,kind);
+
+    
+      if (person) {
+        req.body.person=person.id
+        next();
+        return;
+      }
+      
+      return res.status(403).json({ 
+        ok: false,
+        message: 'El email no se encuentra registrado'
+      });
     
   } catch (error) {
     console.log(error);
