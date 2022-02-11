@@ -14,7 +14,13 @@ export const getPerson=async (id:number):Promise<Person>=>{
     
     return data[0][0] as Person;
 }
-
+export const getPersonEmail=async (email:string,kind:number):Promise<Person>=>{
+    
+   
+    const data=await connection.query(`select * from person where kind=? and email=?`, [kind,email]) as RowDataPacket[][];
+    
+    return data[0][0] as Person;
+}
 export const getPersons=async (kind:number,state:boolean):Promise<Person[]>=>{
     
     console.log(kind);
