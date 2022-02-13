@@ -19,6 +19,7 @@ export const addSell=async(req:Request,res:Response)=>{
                 message:'Sell not created'
             });
         }
+        
 
         const details=detailsReq.map((detail)=>{
             return {
@@ -26,17 +27,26 @@ export const addSell=async(req:Request,res:Response)=>{
                 sell:exito
             }
         }) as SellDetail[];
+        let ban:boolean=false;
         details.forEach(async(detail,index)=>{
             const {exito}=await createSellDetail(detail);
+                console.log('exitodetails:',exito);
             if(!exito){
-                return res.status(401).json({
-                    ok:false,
-                    message:'Sell not created'
-                });
+               ban=true;
+               return;
+
             }
             details[index].id=exito;
-        })
+        });
+        if(ban){
+            return res.status(401).json({
+                ok:false,
+                message:'Sell not created'
+            });
+        }
+       
         newSell.id=exito;
+            console.table(details);
         return res.status(200).json({
             ok:true,
             message:'Sell created',
