@@ -13,9 +13,9 @@ export const getSell=async(id:number):Promise<SellDetail>=>{
     const data =await connection.query('select * from sellDetail where id=?',[id]) as RowDataPacket[][];
     return data[0][0] as SellDetail;
 } 
-
+/***product int, in _sell int,in priceUnit decimal(12,2),in quantity int */
 export const createSellDetail=async(sellDetail:SellDetail):Promise<Response>=>{
     const {sell,product,quantity,priceUnit}=sellDetail;
-    const data =await connection.query('call createSellDetail(?,?,?,?)',[sell,product,quantity,priceUnit]) as RowDataPacket[][];
+    const data =await connection.query('call createSellDetail(?,?,?,?)',[product,sell, priceUnit,quantity]) as RowDataPacket[][];
     return data[0][0][0]  as Response;
 }
