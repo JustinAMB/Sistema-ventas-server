@@ -16,7 +16,7 @@ export const addSell=async(req:Request,res:Response)=>{
         if(!exito){
             return res.status(401).json({
                 ok:false,
-                message:'Sell not created'
+                message:'Se no se a podido realizado la operacion, por favor intente de nuevo'
             });
         }
         
@@ -41,7 +41,7 @@ export const addSell=async(req:Request,res:Response)=>{
         if(ban){
             return res.status(401).json({
                 ok:false,
-                message:'Sell not created'
+                message:'Se no se a podido realizado la operacion, por favor intente de nuevo'
             });
         }
        
@@ -49,7 +49,7 @@ export const addSell=async(req:Request,res:Response)=>{
             console.table(details);
         return res.status(200).json({
             ok:true,
-            message:'Sell created',
+            message:'Se ha realizado la operacion satisfactoriamente',
             data:{
                 sell:newSell,
                 details
@@ -59,7 +59,7 @@ export const addSell=async(req:Request,res:Response)=>{
     catch(err){
         res.status(500).json({
             ok:false,
-            msg:err
+            message:'Error inesperado',
         })
     }
 }
