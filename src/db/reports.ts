@@ -30,3 +30,10 @@ export const productsCategory =async ():Promise<Report[]>=>{
     
     return data[0][0] as Report[];
 }
+export const sellsDay =async ():Promise<Report[]>=>{
+        
+    
+    const data=await connection.query(`call sellsDay()`) as RowDataPacket[][];
+    
+    return data[0][0] as Report[];
+}
