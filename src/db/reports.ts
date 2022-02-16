@@ -23,3 +23,10 @@ export const productsTop =async ():Promise<Report[]>=>{
     return data[0][0] as Report[];
 }
 
+export const productsCategory =async ():Promise<Report[]>=>{
+        
+    
+    const data=await connection.query(`call productsCategory()`) as RowDataPacket[][];
+    
+    return data[0][0] as Report[];
+}
