@@ -1,6 +1,6 @@
 import { Request,Response } from "express";
 import { createSellDetail, getAllSellDetails, getSell } from "../db/dellDetail";
-import { createSell } from "../db/sell";
+import { createSell, getAllSell } from "../db/sell";
 import Sell from "../models/sell.model";
 import SellDetail from "../models/sellDetail.model";
 
@@ -88,5 +88,21 @@ export const getSellById=async(req:Request,res:Response)=>{
             message:'Error inesperado'
         });
 
+    }
+}
+
+
+export const getSellsByDay=async(req:Request,res:Response)=>{
+    try{
+        const data=await  getAllSell() ||[];
+        return res.status(200).json({
+            ok:true,
+            data
+        });
+    }catch(err){
+        res.status(500).json({
+            ok:false,
+            message:'Error inesperado'
+        });
     }
 }
