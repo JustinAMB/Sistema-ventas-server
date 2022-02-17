@@ -4,6 +4,7 @@ import person from '../routes/person.routes';
 import sell from '../routes/sell.routes';
 import user from '../routes/user.routes';
 import product from '../routes/product.routes';
+import reports from '../routes/reports.routes';
 
 import upload from '../routes/upload.routes';
 import cors from 'cors';
@@ -20,6 +21,7 @@ class Server{
         user: '/api/user',
         product: '/api/product',
         upload: '/api/upload',
+        reports: '/api/reports',
     }
     constructor(){
         this.app=express();
@@ -44,6 +46,7 @@ class Server{
         this.app.use(this.apiPaths.user, user);
         this.app.use(this.apiPaths.product, product);
         this.app.use(this.apiPaths.upload, upload);
+        this.app.use(this.apiPaths.reports, reports);
         
     }
     listen(){
