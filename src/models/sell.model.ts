@@ -4,4 +4,5 @@ export default interface Sell{
     created?:Date;
     user:number;
     total:number;
+    kind?:number;
 }
