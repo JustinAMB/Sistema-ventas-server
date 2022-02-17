@@ -6,7 +6,7 @@ export const getReports =  async (
     res:Response
 ) => {
     try {
-        const is_active = req.query['is_active'] as string;
+        
          const reports= await reportsGeneral() || [];
          const sellFav=await productsTop() || [];
          const productXcategory=await productsCategory() || [];
