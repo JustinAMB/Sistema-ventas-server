@@ -7,7 +7,7 @@ import { emailValidator } from '../middleware/unique';
 
 const router=Router();
 
-router.get('/:id',[verifyToken],getReports);
+router.get('/',[verifyToken],getReports);
 
 
 export default router;
