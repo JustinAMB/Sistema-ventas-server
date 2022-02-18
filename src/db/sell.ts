@@ -5,7 +5,7 @@ import connection from './connection';
 
 
 export const getAllSell=async ():Promise<Sell[]>=>{
-    const data =await connection.query('select * from sell where created=now()') as RowDataPacket[][];
+    const data =await connection.query('select * from sell where date(created)=date(now())') as RowDataPacket[][];
     return data[0] as Sell[];
 } 
 export const getSell=async(id:number):Promise<Sell>=>{
