@@ -1,6 +1,6 @@
 import { Request,Response } from "express";
-import { createSellDetail, getAllSellDetails, getSell } from "../db/dellDetail";
-import { createSell, getAllSell } from "../db/sell";
+import { createSellDetail, getAllSellDetails } from "../db/dellDetail";
+import { createSell, getAllSell,getSell } from "../db/sell";
 import Sell from "../models/sell.model";
 import SellDetail from "../models/sellDetail.model";
 
