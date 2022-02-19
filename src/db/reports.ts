@@ -18,22 +18,22 @@ export const reportsGeneral =async ():Promise<number[]>=>{
 export const productsTop =async ():Promise<Report[]>=>{
         
     
-    const data=await connection.query(`call productsTop()`) as RowDataPacket[][];
+    const data=await connection.query(`SELECT * FROM puntoventa.producttop limit 5`) as RowDataPacket[][];
     
-    return data[0][0] as Report[];
+    return data[0] as Report[];
 }
 
 export const productsCategory =async ():Promise<Report[]>=>{
         
     
-    const data=await connection.query(`call productsCategory()`) as RowDataPacket[][];
+    const data=await connection.query(`SELECT * FROM categoriesxproduct limit 10`) as RowDataPacket[][];
     
-    return data[0][0] as Report[];
+    return data[0] as Report[];
 }
 export const sellsDay =async ():Promise<Report[]>=>{
         
     
-    const data=await connection.query(`call sellsDay()`) as RowDataPacket[][];
+    const data=await connection.query(`SELECT * FROM sellsByDay`) as RowDataPacket[][];
     
-    return data[0][0] as Report[];
+    return data[0] as Report[];
 }
