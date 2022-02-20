@@ -13,12 +13,12 @@ export const reportsGeneral =async ():Promise<number[]>=>{
     
     const data=await connection.query(`call reports()`) as RowDataPacket[][];
     
-    return data[0][0] as number[];
+    return data[0][0][0] as number[];
 }
 export const productsTop =async ():Promise<Report[]>=>{
         
     
-    const data=await connection.query(`SELECT * FROM puntoventa.producttop limit 5`) as RowDataPacket[][];
+    const data=await connection.query(`SELECT name,ventas as quantity FROM puntoventa.producttop limit 5`) as RowDataPacket[][];
     
     return data[0] as Report[];
 }
@@ -26,7 +26,7 @@ export const productsTop =async ():Promise<Report[]>=>{
 export const productsCategory =async ():Promise<Report[]>=>{
         
     
-    const data=await connection.query(`SELECT * FROM categoriesxproduct limit 10`) as RowDataPacket[][];
+    const data=await connection.query(`SELECT name,cantidad as quantity FROM categoriesxproduct limit 10`) as RowDataPacket[][];
     
     return data[0] as Report[];
 }
