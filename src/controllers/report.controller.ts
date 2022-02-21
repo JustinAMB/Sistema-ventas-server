@@ -7,8 +7,14 @@ export const getReports =  async (
 ) => {
     try {
         
-         const reports= await reportsGeneral() || [];
+         const generals= await reportsGeneral() ;
+            
          const sellFav=await productsTop() || [];
+         const reports=[];
+         for (const property in generals) {
+            reports.push(generals[property]|| 0);
+          }
+          
          const productXcategory=await productsCategory() || [];
          const sellDay=await sellsDay() || [];
         return res.status(200).json({
@@ -21,9 +27,10 @@ export const getReports =  async (
             }
         });
     } catch (err) {
+        console.log(err);
         res.status(501).json({
             ok: false,
-            messge: 'Error al obtener los reportes'
+            message: 'Error al obtener los reportes'
         });
     }
 }
