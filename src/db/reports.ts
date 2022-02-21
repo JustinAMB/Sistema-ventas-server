@@ -33,7 +33,7 @@ export const productsCategory =async ():Promise<Report[]>=>{
 export const sellsDay =async ():Promise<Report[]>=>{
         
     
-    const data=await connection.query(`SELECT * FROM sellsByDay`) as RowDataPacket[][];
+    const data=await connection.query(`SELECT fecha as name,total as quantity FROM sellsByDay`) as RowDataPacket[][];
     
     return data[0] as Report[];
 }
