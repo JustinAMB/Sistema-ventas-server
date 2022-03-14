@@ -18,7 +18,7 @@ export const reportsGeneral =async ():Promise<number[]>=>{
 export const productsTop =async ():Promise<Report[]>=>{
         
     
-    const data=await connection.query(`SELECT name,ventas as quantity FROM puntoventa.producttop limit 5`) as RowDataPacket[][];
+    const data=await connection.query(`SELECT name,ventas as quantity FROM producttop limit 5`) as RowDataPacket[][];
     
     return data[0] as Report[];
 }
